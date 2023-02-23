@@ -10,4 +10,8 @@ class Utils {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
+
+  static dismissKeyBoard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
 }

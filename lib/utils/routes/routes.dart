@@ -12,7 +12,7 @@ class Routes {
       case RouteNames.home:
         return getPageRoute(settings: settings, view: const HomeScreen());
       case RouteNames.login:
-        return getPageRoute(settings: settings, view: const Login());
+        return getPageRoute(settings: settings, view: Login());
       default:
         return getPageRoute(
           settings: settings,
