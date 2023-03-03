@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 class Utils {
   static showToastMessage(
@@ -14,4 +15,8 @@ class Utils {
   static dismissKeyBoard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }
+}
+
+logConsole(dynamic message) {
+  log('message -> $message');
 }

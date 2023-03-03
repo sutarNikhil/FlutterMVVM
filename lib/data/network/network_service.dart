@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:provider_demo/utils/app_exceptions.dart';
+import 'package:provider_demo/utils/utils.dart';
+
+import '../../res/constants.dart';
 
 class NetworkService {
   static const baseUrl = "";
 
-  Future<dynamic> getRequest(String url) async {
+  static Future<dynamic> getRequest(String url) async {
     dynamic responseJson;
     try {
       var response =
@@ -18,13 +21,16 @@ class NetworkService {
     return responseJson;
   }
 
-  Future<dynamic> postRequest(String url, Map<String, dynamic> data) async {
+  static Future<dynamic> postRequest(
+      String url, Map<String, dynamic> data) async {
     dynamic responseJson;
     try {
-      var response = await http
-          .post(Uri.parse(url), body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
-      responseJson = responseJson(response);
+      var response = await http.post(
+        Uri.parse(Constant.login),
+        body: jsonEncode(data),
+        headers: {'Content-Type': 'application/json'},
+      ).timeout(const Duration(seconds: 10));
+      responseJson = response;
     } on SocketException catch (e) {
       throw FetchDataException(message: e.message);
     }

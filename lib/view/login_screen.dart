@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:provider_demo/res/colors.dart';
 import 'package:provider_demo/res/component/round_button.dart';
 import 'package:provider_demo/utils/utils.dart';
+import 'package:provider_demo/view_model/auth_view_model.dart';
 
 import '../utils/routes/route_names.dart';
 
@@ -30,6 +32,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final model = Provider.of<AuthViewModel>(context);
     return Scaffold(
       body: Center(
         child: Form(
@@ -47,7 +50,6 @@ class _LoginState extends State<Login> {
                     child: TextFormField(
                       cursorColor: AppColors.primaryColor,
                       keyboardType: TextInputType.emailAddress,
-                      maxLength: 10,
                       validator: (value) {},
                       controller: emailController,
                       decoration: const InputDecoration(
@@ -55,7 +57,7 @@ class _LoginState extends State<Login> {
                         focusedBorder: UnderlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.primaryColor)),
-                        hintText: "Mobile number",
+                        hintText: "email",
                       ),
                     ),
                   ),
@@ -101,7 +103,9 @@ class _LoginState extends State<Login> {
                     onTap: () {
                       Utils.dismissKeyBoard();
                       if (globalKey.currentState!.validate()) {
-                        Utils.showToastMessage("logged in", context, () {});
+                        model.email = emailController.text;
+                        model.password = passController.text;
+                        model.loginUser(model.email!, model.password!, context);
                       } else {
                         Utils.showToastMessage("empty!", context, () {});
                       }
